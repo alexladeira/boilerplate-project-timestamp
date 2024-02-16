@@ -15,6 +15,7 @@ app.get("/", function (req, res) {
 });
 
 app.get("/api/:date?", (req, res) => {
+  console.log(req.params.date);
   const date = req.params.date ? extractValidDate(req) : new Date();
   if (date == "Invalid Date") {
     return res.json({ error: "Invalid Date" });
@@ -24,7 +25,7 @@ app.get("/api/:date?", (req, res) => {
 });
 
 const extractValidDate = (req) =>
-  req.params.date.indexOf("-") > 0
+  req.params.date.indexOf("-") > 0 || req.params.date.indexOf(" ") > 0
     ? new Date(req.params.date)
     : new Date(parseInt(req.params.date));
 
